@@ -85,6 +85,7 @@ async function onFormSubmit(event) {
 
 async function onLoadMore() {
   currentPage += 1;
+  hideLoadMoreButton();
   showLoader();
 
   try {
@@ -103,7 +104,9 @@ async function onLoadMore() {
     }
 
     const loadedImages = currentPage * 15;
-    if (loadedImages >= totalHits) {
+    if (loadedImages < totalHits) {
+      showLoadMoreButton();
+    } else {
       hideLoadMoreButton();
       iziToast.info({
         title: 'Info',
